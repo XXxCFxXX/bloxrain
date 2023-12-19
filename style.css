@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+*
+{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+}
+body 
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: #1b1b1b;
+	overflow: hidden;
+}
+.container 
+{
+	position: relative;
+	height: 400px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.cloud 
+{
+	position: relative;
+	width: 320px;
+	top: 50px;
+	height: 100px;
+	border-radius: 100px;
+	filter: drop-shadow(8px 8px 0 #0005);
+}
+.cloud::before
+{
+	content: '';
+	position: absolute;
+	top: -50px;
+	left: 40px;
+	width: 110px;
+	height: 110px;
+	border-radius: 50%;
+	background: #484f59;
+	box-shadow: 90px -10px 0 30px #484f59;
+}
+.cloud::after
+{
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: #484f59;
+	border-radius: 100px;
+	z-index: 10000;
+}
+.drop 
+{
+	position: absolute;
+	top: 40px;
+	background: #05e2eb;
+	transform-origin: bottom;
+	animation: animate 2s linear forwards;
+}
+@keyframes animate 
+{
+	0% 
+	{
+		transform: translateY(0) scaleY(1);
+	}
+	70% 
+	{
+		transform: translateY(320px) scaleY(1);
+	}
+	80% 
+	{
+		transform: translateY(320px) scaleY(0.2);
+	}
+	100% 
+	{
+		transform: translateY(320px) scaleY(0) scaleX(15);
+	}
+}
+h2 {
+	position: absolute;
+	bottom: 10px;
+	color: white;
+	font-weight: bold;
+	font-size: 37px;
+	text-align: center;
+	width: 100%;
+}
+h1 {
+	position: absolute;
+	top: 3px;
+	color: white;
+	font-weight: bold;
+	font-size: 44px;
+	text-align: center;
+	width: 100%;
+}
+
+#overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	backdrop-filter: blur(10px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	opacity: 1;
+	transition: opacity 0.5s ease;
+	z-index: 2;
+}
+
+#clickToEnter {
+	font-size: 2em;
+	font-weight: bold;
+	color: #fff;
+	text-align: center;
+	cursor: pointer;
+	text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+	transition: opacity 0.5s ease;
+}
+#clickToEnter:hover {
+	opacity: 0.8;
+  }  

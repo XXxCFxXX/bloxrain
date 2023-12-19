@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BloxRains</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="rainAudio" autoplay>
+        <source src="https://gemootest.s3.us-east-2.amazonaws.com/s/res/514885813225336832/b4769218ef9d76684340f3752b40207f.mp4?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARLZICB6QQHKRCV7K%2F20231219%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20231219T053011Z&X-Amz-SignedHeaders=host&X-Amz-Expires=7200&X-Amz-Signature=45f4c221ba2bfcf026dae68d8e006b593b015e825dde08727281779f79f77086" type="audio/mpeg">
+        Your browser does not support the audio tag.
+    </audio>
+    <div id="overlay" onclick="handleOverlay()">
+        <div id="clickToEnter">CLICK TO ENTER</div>
+    </div>
+    <h1>BloxRains</h1>
+    <h2>Created By Cxlxb</h2>
+    <div class="container" onclick="bgAudioStart()">
+        <div class="cloud"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+
+        
+        let rainActive = false;
+
+        function bgAudioStart() {
+            let audio = document.getElementById('rainAudio');
+            audio.play();
+            removeOverlay();
+        }
+
+        function startR() {
+            const currentTime = new Date().getTime();
+            const timeSinceLastPlay = currentTime - lastRainPlayTime;
+
+        if (!rainActive || timeSinceLastPlay >= 10000) {
+            console.log('rain timeeeee');
+            rainActive = true;
+            rain();
+            rain();
+            rain();
+            rain();
+            rain();
+            rain();
+
+        let rbxAudio = new Audio('rbx.mp3');
+        document.body.appendChild(rbxAudio);
+        rbxAudio.play();
+
+        lastRainPlayTime = currentTime;
+    }
+}
+
+        function stopR() {
+            rainActive = false;
+            brightnessUpd();
+        }
+
+        function brightnessUpd() {
+            const cloud = document.querySelector('.cloud');
+            const brightness = rainActive ? 1 : 10;
+            cloud.style.filter = `brightness(${brightness})`;
+        }
+
+        function rain() {
+            if (rainActive) {
+                let cloud = document.querySelector('.cloud');
+                let e = document.createElement('div');
+                let left = Math.floor(Math.random() * 310);
+                let width = Math.random() * 5;
+                let height = Math.random() * 50;
+                let duration = Math.random() * 0.5;
+
+                e.classList.add('drop');
+                cloud.appendChild(e);
+                e.style.left = left + 'px';
+                e.style.width = 0.5 + width + 'px';
+                e.style.height = 0.5 + height + 'px';
+                e.style.animationDuration = 1 + duration + 's';
+
+                setTimeout(function () {
+                    cloud.removeChild(e);
+                }, 2000);
+            }
+        }
+
+        function check() {
+            fetch("https://api.bloxflip.com/chat/history")
+                .then(response => response.json())
+                .then(data => {
+                    let rainStatus = data.rain.active;
+                    if (rainStatus) {
+                        startR();
+                    } else {
+                        stopR();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function removeOverlay() {
+            let overlay = document.getElementById('overlay');
+            overlay.style.opacity = 0;
+            setTimeout(() => {
+                overlay.parentNode.removeChild(overlay);
+            }, 500);
+        }
+
+        function handleOverlay() {
+            bgAudioStart();
+        }
+
+        check();
+        setInterval(check, 100);
+
+        
+    </script>
+</body>
+</html>
